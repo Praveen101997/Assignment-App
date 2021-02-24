@@ -34,6 +34,9 @@
 ## <a href="https://github.com/Praveen101997/Atom-App/raw/master/assets/Screenrecorder.mp4" download>Click to Download</a>
 [![Atom App](https://img.youtube.com/vi/O-rEjq3m4is/0.jpg)](https://youtu.be/O-rEjq3m4is)
 
+## Sample Preview
+## <a href="https://appetize.io/app/vxphnd7q6x53b71pwy45zjyv1g?device=galaxytabs7&scale=100&orientation=portrait&osVersion=10.0" download>Click to Open App</a>
+
 
 ## Sample App GIF
 ![](./assets/App.gif)
