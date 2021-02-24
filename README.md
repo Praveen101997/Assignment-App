@@ -25,6 +25,12 @@ The app named BlendToMend has been developed with the aim of removing most of th
 
 ----
 
+## App Screenrecording
+
+
+## Sample App GIF
+[Alt Text]("assets/app_sample1.jpg")
+
 ## Sample App Image
 <img src="assets/app_sample1.jpg" width="500" >
 ----
