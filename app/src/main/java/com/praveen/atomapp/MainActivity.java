@@ -3,7 +3,9 @@ package com.praveen.atomapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity{
 
     FirebaseAuth mAuth;
@@ -24,7 +28,7 @@ public class MainActivity extends AppCompatActivity{
     private MaterialButton logout_btn;
     private DatabaseReference mDatabase;
     String uid;
-    String user_name;
+    static String user_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity{
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         logout_btn = findViewById(R.id.logout);
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
     }
 
     // Implements Click Listener
@@ -54,6 +59,20 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    // Start Login Activity
+    public void startLoginActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // Start Register Activity
+    public void startRegisterActivity(){
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     @Override
     protected void onStart() {
@@ -64,22 +83,48 @@ public class MainActivity extends AppCompatActivity{
         if(currentUser==null){
             startLoginActivity();
         }else{
-            updateActivity(currentUser);
-            if (user_name==null||user_name.equals("")||user_name.equals("null")){
-                startRegisterActivity();
-            }
+
+            final FirebaseUser user = currentUser;
+
+            new AsyncTask<Object, Object, Object>(){
+                @SuppressLint("StaticFieldLeak")
+                @Override
+                protected Object doInBackground(Object[] objects) {
+                    getUserDetail(user);
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Object o) {
+                    super.onPostExecute(o);
+                    if (user_name==null||user_name.equals("")||user_name.equals("null")){
+                        startRegisterActivity();
+                    }
+
+                }
+            };
         }
     }
 
 
-    private void updateActivity(FirebaseUser user) {
+    // Update the activity detail
+    private void getUserDetail(FirebaseUser user) {
         uid = user.getUid();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(uid);
-        databaseReference.child("name").addValueEventListener(new ValueEventListener() {
+        DatabaseReference uidRef = mDatabase.child(uid);
+        getUserFromDatabase(uidRef);
+        Log.d("TT2","Username : " + user_name);
+    }
+
+    private void getUserFromDatabase(DatabaseReference ref){
+
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user_name = String.valueOf(dataSnapshot.getValue());
-
+                if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") )){
+                    String name = dataSnapshot.child("name").getValue().toString();
+                    Log.d("tt3",name);
+                    user_name = name;
+                }
             }
 
             @Override
@@ -87,26 +132,7 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-        if (user_name==null||user_name.equals("")||user_name.equals("null")){
-            Intent intent = getIntent();
-            user_name = intent.getStringExtra("uname");
-        }
-        Log.d("TT2","Username : " + user_name);
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        mDatabase.child(uid).child("name").setValue(user_name);
 
-    }
-
-    public void startLoginActivity(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void startRegisterActivity(){
-        Intent intent = new Intent(this, RegistrationActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 
