@@ -31,6 +31,7 @@
 
 
 ## App Screenrecording
+[![Atom App](https://img.youtube.com/vi/O-rEjq3m4is/0.jpg)](https://youtu.be/O-rEjq3m4is)
 
 
 ## Sample App GIF
