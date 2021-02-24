@@ -26,6 +26,7 @@ public class RegistrationActivity extends AppCompatActivity{
 
     final String TAG = "Registration Activity :";
 
+    // Variable Declarations
     String uname;
     private EditText person_name;
     private MaterialButton goto_home_btn;
@@ -41,8 +42,9 @@ public class RegistrationActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        // Initilaize Variables and fields
         initialiseFields();
-
+        // Set Click Listener On Necessary Fields
         clickListeners();
 
     }
@@ -128,6 +130,7 @@ public class RegistrationActivity extends AppCompatActivity{
         Log.d(TAG,"Username : " + uname);
     }
 
+    // Get User Detial from Realtime database
     private void getUserFromDatabase(DatabaseReference ref){
 
         ref.addValueEventListener(new ValueEventListener() {

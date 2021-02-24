@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity{
 
     private String TAG = "Login Activity";
 
+    // Variable Declarations
     private LoginActivity binding;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -50,8 +51,9 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize Variables
         initialiseFields();
-
+        // Set clicklistenser on necessary fields
         clickListeners();
 
 

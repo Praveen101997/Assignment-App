@@ -3,9 +3,7 @@ package com.praveen.atomapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,12 +17,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
+    final String TAG = "Main Activity";
+
+    //Firebase Auth
     FirebaseAuth mAuth;
 
+    // Variable declaration
     private MaterialButton logout_btn;
     private DatabaseReference mDatabase;
     String uid;
@@ -35,7 +36,9 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initilaize variables and fields
         initialiseFields();
+        //Set Click Listener On necessary fields
         clickListeners();
 
     }
@@ -83,26 +86,7 @@ public class MainActivity extends AppCompatActivity{
         if(currentUser==null){
             startLoginActivity();
         }else{
-
-            final FirebaseUser user = currentUser;
-
-            new AsyncTask<Object, Object, Object>(){
-                @SuppressLint("StaticFieldLeak")
-                @Override
-                protected Object doInBackground(Object[] objects) {
-                    getUserDetail(user);
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Object o) {
-                    super.onPostExecute(o);
-                    if (user_name==null||user_name.equals("")||user_name.equals("null")){
-                        startRegisterActivity();
-                    }
-
-                }
-            };
+            getUserDetail(currentUser);
         }
     }
 
@@ -112,9 +96,10 @@ public class MainActivity extends AppCompatActivity{
         uid = user.getUid();
         DatabaseReference uidRef = mDatabase.child(uid);
         getUserFromDatabase(uidRef);
-        Log.d("TT2","Username : " + user_name);
+        Log.d(TAG,"Username : " + user_name);
     }
 
+    // Get Detail from Realtime Database and do necessary Actions
     private void getUserFromDatabase(DatabaseReference ref){
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -124,6 +109,11 @@ public class MainActivity extends AppCompatActivity{
                     String name = dataSnapshot.child("name").getValue().toString();
                     Log.d("tt3",name);
                     user_name = name;
+                    if (name==null||name.equals("")||name.equals("null")){
+                        startRegisterActivity();
+                    }
+                }else{
+                    startRegisterActivity();
                 }
             }
 
@@ -132,8 +122,6 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-
     }
-
 
 }
