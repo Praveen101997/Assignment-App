@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustResize"
     tools:context=".RegistrationActivity">
 
     <LinearLayout
@@ -93,13 +94,13 @@
         android:paddingBottom="5dp"
         android:text="@string/gotohome"
         android:textAllCaps="false"
-        android:textSize="18sp"
         android:textColor="@color/common_google_signin_btn_text_light"
+        android:textSize="25sp"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_txt_person_name"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.964" />
 </androidx.constraintlayout.widget.ConstraintLayout>

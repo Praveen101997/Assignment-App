@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,10 +16,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegistrationActivity extends AppCompatActivity{
+
+    final String TAG = "Registration Activity :";
 
     String uname;
     private EditText person_name;
@@ -50,6 +56,10 @@ public class RegistrationActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         currentUser  = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users");
+
+        final FirebaseUser user = currentUser;
+        getUserDetail(user);
+
     }
 
     // Implements Click Listener
@@ -108,5 +118,33 @@ public class RegistrationActivity extends AppCompatActivity{
         Intent login_intent = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(login_intent);
         finish();
+    }
+
+    // Update the activity detail
+    private void getUserDetail(FirebaseUser user) {
+        uid = user.getUid();
+        DatabaseReference uidRef = mDatabase.child(uid);
+        getUserFromDatabase(uidRef);
+        Log.d(TAG,"Username : " + uname);
+    }
+
+    private void getUserFromDatabase(DatabaseReference ref){
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") )){
+                    String name = dataSnapshot.child("name").getValue().toString();
+                    uname = name;
+                    person_name.setText(name);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
