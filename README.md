@@ -25,6 +25,14 @@ The app named BlendToMend has been developed with the aim of removing most of th
 
 ----
 
+## Assets Directory
+
+```
+|  
+└───Assets
+```
+
+
 ## App Screenrecording
 
 
