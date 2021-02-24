@@ -1,4 +1,4 @@
-# [Atom App](https://github.com/Praveen101997/Atom-App)
+# [Atom App](https://github.com/Praveen101997/Assignment-App)
 
 ## Problem Statement : 
 ### Build  a Login & Registration  Flow for an Android App using Firebase.
@@ -31,7 +31,7 @@
 
 
 ## App Screenrecording
-## <a href="https://github.com/Praveen101997/Atom-App/raw/master/assets/Screenrecorder.mp4" download>Click to Download</a>
+## <a href="https://github.com/Praveen101997/Assignment-App/raw/master/assets/Screenrecorder.mp4" download>Click to Download</a>
 [![Atom App](https://img.youtube.com/vi/O-rEjq3m4is/0.jpg)](https://youtu.be/O-rEjq3m4is)
 
 ## Sample Preview
