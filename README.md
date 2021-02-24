@@ -34,7 +34,7 @@
 
 
 ## Sample App GIF
-![] ("assets/app_sample1.jpg")
+![](./assets/App.gif)
 
 ## Sample App Image
 <img src="assets/app_sample1.jpg" width="500" >
