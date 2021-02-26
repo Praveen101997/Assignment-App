@@ -43,7 +43,7 @@
 ![](./assets/App.gif)
 
 ## Sample App Image
-<img src="assets/Screenshot_1.jpg" width="500" >
+<img src="assets/Screenshot_1.jpg" width="800" >
 ----
 <img src="assets/app_sample1.jpg" width="400" >
 ----
