@@ -43,11 +43,13 @@
 ![](./assets/App.gif)
 
 ## Sample App Image
-<img src="assets/app_sample1.jpg" width="500" >
+<img src="assets/Screenshot_1.jpg" width="500" >
 ----
-<img src="assets/app_sample2.jpg" width="500" >
+<img src="assets/app_sample1.jpg" width="400" >
 ----
-<img src="assets/app_sample3.jpg" width="500" >
+<img src="assets/app_sample2.jpg" width="400" >
 ----
-<img src="assets/app_sample4.jpg" width="500" >
+<img src="assets/app_sample3.jpg" width="400" >
+----
+<img src="assets/app_sample4.jpg" width="400" >
 ----
